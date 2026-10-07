@@ -2,21 +2,19 @@
 
 > Thay **mọi** ô có chữ ĐIỀN nằm trong ngoặc vuông bằng nội dung của bạn, xoá luôn cả dấu ngoặc vuông. Lệnh `python tools/check_submission.py` sẽ báo FAIL nếu còn sót bất kỳ chỗ nào.
 
-- **Họ tên:** [ĐIỀN]
-- **MSSV:** [ĐIỀN] (phải trùng với MSSV trong tên repo `<HoVaTen>-<MSSV>-Track4-Day21`)
-- **Lớp:** [ĐIỀN]
-- **Link repo:** [ĐIỀN]
-- **Topic:** [ĐIỀN một chữ cái A/B/C/D/E/F] — [ĐIỀN tên topic]
-- **Dataset:** [ĐIỀN một hoặc nhiều trong: data/synthetic, data/kitti_mini, data/nuscenes_mini_subset, log riêng]
-- **Các frame đã dùng:** [ĐIỀN danh sách frame id, ví dụ 000011, 000049 hoặc scene-0103_010]
+- **Họ tên:** Nguyễn Hải Hoàng
+- **MSSV:** 2A202602489
+- **Lớp:** K4B
+- **Link repo:** https://github.com/hoang9605/NguyenHaiHoang-2A202602489-Track4-Day21
+- **Topic:** A — LiDAR-camera projection QA
+- **Dataset:** data/synthetic (kiểm tra), data/kitti_mini (thí nghiệm chính)
+- **Các frame đã dùng:** synthetic 000000–000004; toàn bộ 20 frame KITTI, danh sách sẽ lưu trong CSV thí nghiệm.
 
 > Hãy viết ngắn: mỗi mục từ 3 đến 8 dòng, ưu tiên số liệu và hình ảnh.
 
 ## 1. Claim
 
-Một câu khẳng định kỹ thuật có thể kiểm chứng. Ví dụ: *"Lệch yaw 1° làm 12% điểm LiDAR rơi ra khỏi vật thể ở 30 m, phát hiện được bằng edge-alignment score với ngưỡng X."*
-
-[ĐIỀN]
+Giả thuyết ban đầu (CP1): tăng độ lớn lệch yaw từ 0° đến 3° làm giảm tỷ lệ điểm của object chiếu vào box 2D tương ứng trên KITTI, trong khi tỷ lệ điểm trong FOV có thể ít thay đổi. Kiểm tra cả yaw âm và dương; giữ nguyên tập điểm được chọn bằng 3D GT và calibration gốc. Claim cuối cùng sẽ căn cứ vào kết quả chạy thật.
 
 ## 2. Evidence
 
