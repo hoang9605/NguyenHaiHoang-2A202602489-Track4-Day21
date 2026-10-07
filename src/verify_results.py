@@ -17,8 +17,11 @@ def main():
                         "--data-root", cfg["data_root"], "--frames", *cfg["frames"],
                         "--yaws", *map(str, cfg["yaws"]), "--min-points", str(cfg["min_points"]),
                         "--seed", str(cfg["seed"]), "--skip-figures", "--out", temp], check=True)
+        subprocess.run([sys.executable, "-X", "utf8", "-m", "src.translation_sweep",
+                        "--config", str(args.results / "config.json"), "--out", temp,
+                        "--skip-figures"], check=True)
         for name in ("object_metrics", "frame_metrics", "object_selection",
-                     "yaw_perturb_sweep", "range_summary"):
+                     "yaw_perturb_sweep", "range_summary", "translation_sweep", "translation_objects"):
             filename = name + ".csv"
             if (Path(temp) / filename).read_bytes() != (args.results / filename).read_bytes():
                 raise AssertionError(f"Numeric results differ: {filename}")

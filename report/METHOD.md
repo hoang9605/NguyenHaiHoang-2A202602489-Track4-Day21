@@ -50,6 +50,12 @@ Chạy cả hai dấu để tránh kết luận chỉ dựa vào một hướng 
 hay thuật toán ngẫu nhiên; seed vẫn được ghi trong config để tái lập nếu mở rộng.
 Các mức mặc định: -3, -2, -1, -0.5, 0, 0.5, 1, 2, 3 độ.
 
+Thí nghiệm bổ sung `src.translation_sweep` dịch theo y LiDAR (sang trái), giữ yaw=0°,
+với -10, -5, -2, 0, 2, 5, 10 cm. Dùng cùng config, class, object và quy tắc mẫu số.
+Hai loại perturb chạy riêng, không trộn yaw và translation trong cùng một cấu hình.
+Macro hit tăng nhẹ ở -2 cm (93,09% so với baseline 92,89%), phản ánh giới hạn của
+rectangle-hit proxy. Không tự hiệu chuẩn bằng cách tối đa hóa duy nhất metric này.
+
 Khoảng cách trong bảng là độ sâu tâm đáy object `location[2]` trong camera, không
 phải khoảng cách Euclidean từ LiDAR. Nhóm: dưới 15 m, 15–30 m, từ 30 m trở lên.
 Không suy luận độ dịch pixel luôn tăng theo khoảng cách: với phép quay nhỏ, nó còn

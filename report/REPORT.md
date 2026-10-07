@@ -35,6 +35,11 @@ Chọn Car/Van/Truck/Pedestrian/Cyclist có >=10 điểm trong 3D GT ở calibra
 
 ![Yaw sweep](../results/figures/yaw_perturb_curve.png)
 
+Kiểm tra tịnh tiến riêng theo **y LiDAR (sang trái)**, giữ yaw=0°: quét **−10, −5, −2, 0, +2, +5, +10 cm** trên cùng 106 object. Macro hit lần lượt **92,58; 93,01; 93,09; 92,89; 92,72; 92,29; 91,06%**. [CSV](../results/translation_sweep.csv), [chi tiết object](../results/translation_objects.csv).
+Tại −2 cm metric tăng nhẹ: tỷ lệ trong rectangle là proxy, không phải hàm lỗi hiệu chuẩn có cực trị duy nhất tại calibration gốc; không dùng việc tăng này để kết luận calibration GT sai.
+
+![Translation sweep](../results/figures/translation_curve.png)
+
 CSV: [tổng hợp](../results/yaw_perturb_sweep.csv), [từng object](../results/object_metrics.csv), [từng frame](../results/frame_metrics.csv), [nhóm độ sâu](../results/range_summary.csv), [object được xét](../results/object_selection.csv). [Cấu hình và phiên bản](../results/config.json); [phương pháp chi tiết](METHOD.md).
 Nhóm xa >=30 m (34 object) giảm macro từ **99,65% xuống 13,84%** tại +3°. Đây là quan sát trên nhóm, chưa tách ảnh hưởng class/che khuất/cắt cụt.
 Ba demo baseline có object được đánh dấu ở độ sâu camera **7,86 m**, **22,05 m**, **44,76 m**; độ sâu này không phải khoảng cách Euclidean.
@@ -73,11 +78,12 @@ python -m starter.data_health --data-root data/kitti_mini --out results/data_hea
 python -m starter.projection --data-root data/synthetic --frame 000000
 python -m starter.projection --data-root data/kitti_mini --frame 000011
 python -m src.benchmark
+python -m src.translation_sweep
 python -m src.verify_results
 python tools/check_submission.py
 ```
 
-`src.benchmark --help` liệt kê tham số frame, yaw, ngưỡng số điểm, seed và thư mục output. Script chạy lại so sánh từng byte của cả 5 CSV benchmark; các test hình học kiểm tra điểm tham chiếu, NaN/Inf, depth, FOV, box xoay và mẫu số metric.
+`python -m src.benchmark --help` liệt kê tham số frame, yaw, ngưỡng số điểm, seed và thư mục output. `python -m src.translation_sweep --help` mô tả sweep dịch ngang. Script chạy lại so sánh từng byte của cả 7 CSV benchmark; 7 test kiểm tra điểm tham chiếu, NaN/Inf, depth, FOV, box xoay, mẫu số và dịch ngang không chọn lại object.
 Máy thực hiện dùng Python portable riêng trong `.venv/python.exe` vì Python hệ thống không có trên PATH; tại máy này thay `python` bằng `.\.venv\python.exe -X utf8`. Môi trường `.venv` không được commit; máy khác dùng quy trình chuẩn ở trên.
 Xem [hướng dẫn phương pháp và vấn đáp](METHOD.md). Bonus đề nghị: **B4**, script CLI dùng lại được; không yêu cầu bonus cho các nội dung vốn bắt buộc của topic A.
 
@@ -87,6 +93,6 @@ Xem [hướng dẫn phương pháp và vấn đáp](METHOD.md). Bonus đề ngh�
 
 | Công cụ | Dùng cho việc gì | Bạn đã kiểm chứng thế nào |
 |---|---|---|
-| OpenAI Codex | Giải thích đề; triển khai, chạy thí nghiệm và soạn báo cáo | Codex đã chạy test số học, kiểm tra dữ liệu, mở ảnh kết quả và so sánh 5 CSV từ hai lần chạy. Đây là kiểm chứng tự động do trợ lý thực hiện. |
+| OpenAI Codex | Giải thích đề; triển khai, chạy thí nghiệm và soạn báo cáo | Codex chạy test số học, kiểm tra dữ liệu, mở ảnh kết quả và dùng script so sánh 7 CSV từ hai lần chạy. Đây là kiểm chứng tự động do trợ lý thực hiện. |
 
 **Phần người học tự kiểm chứng:** chưa được xác nhận trong phiên làm việc. Người học cần tự chạy lại các lệnh mục 5, đọc `src/benchmark.py` và `report/METHOD.md`, giải thích được mẫu số, phép chiếu, các con số và failure trước khi nộp/vấn đáp. Báo cáo không nhận thay rằng người học đã thực hiện các bước này.

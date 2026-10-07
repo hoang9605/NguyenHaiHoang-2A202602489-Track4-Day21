@@ -45,7 +45,7 @@ def box_hit_counts(points_cam, projection, shape, bbox):
     return int(inside.sum()), int(mask.sum())
 
 
-def benchmark(data_root, frames, yaws, min_points):
+def benchmark(data_root, frames, yaws, min_points, lateral_shift_m=0.0):
     object_rows, frame_rows, selection_rows = [], [], []
     for fid in frames:
         fr = load_frame(data_root, fid)
@@ -65,7 +65,7 @@ def benchmark(data_root, frames, yaws, min_points):
             if len(ids) >= min_points:
                 objects.append((oid, obj, ids))
         for yaw in yaws:
-            calib = perturb_extrinsic(fr["calib"], yaw_deg=yaw)
+            calib = perturb_extrinsic(fr["calib"], yaw_deg=yaw, t_xyz_m=(0, lateral_shift_m, 0))
             cam = velo_to_cam(xyz, calib)
             uv, _, mask = cam_to_image(cam, calib.P2, fr["image"].shape)
             pixels = np.full((len(xyz), 2), np.nan)
