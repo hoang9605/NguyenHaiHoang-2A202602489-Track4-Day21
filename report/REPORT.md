@@ -28,11 +28,11 @@ Bảng hoặc plot số liệu, kèm ảnh/video demo. Ghi rõ đường dẫn f
 
 ## 3. Failure case
 
-Nêu khi nào hệ thống hoặc phương pháp fail, vì sao fail, và liên hệ tới lớp nào trong 6 lớp debug: I/O, Geometry, Time, Preprocess, Model, Metric.
+Frame **000001**, object **0 (Truck)**, độ sâu **69,44 m**: baseline có **70/70** điểm trong box; yaw **+3°** còn **0/70**. Ảnh dưới giữ nguyên điểm và box, chỉ đổi extrinsic.
+Lỗi thuộc **Geometry**: phép quay sai đẩy điểm sang trái box; box vật xa nhỏ nên dễ mất toàn bộ overlap. FOV tổng vẫn gần như giữ nguyên, cho thấy giới hạn của **Metric** nếu chỉ theo dõi FOV.
+Case được chọn sau thí nghiệm theo mức giảm hit lớn nhất trong nhóm baseline >=80%, không dùng để ước lượng tỷ lệ lỗi ngoài đời. Xem [phương pháp](METHOD.md) và [metadata](../results/visual_cases.json).
 
-![failure](../results/figures/fail_[ĐIỀN].png)
-
-[ĐIỀN]
+![failure](../results/figures/fail_01_yaw_drift.png)
 
 ## 4. Khuyến nghị nếu triển khai thật
 

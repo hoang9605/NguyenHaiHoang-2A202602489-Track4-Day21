@@ -1,0 +1,36 @@
+{
+  "demos": [
+    {
+      "kind": "near",
+      "frame_id": "000008",
+      "object_id": 1,
+      "depth_m": 7.86,
+      "hit_pct": 100.0
+    },
+    {
+      "kind": "mid",
+      "frame_id": "000010",
+      "object_id": 4,
+      "depth_m": 22.05,
+      "hit_pct": 100.0
+    },
+    {
+      "kind": "far",
+      "frame_id": "000023",
+      "object_id": 2,
+      "depth_m": 44.76,
+      "hit_pct": 100.0
+    }
+  ],
+  "failure": {
+    "frame_id": "000001",
+    "object_id": 0,
+    "class_name": "Truck",
+    "depth_m": 69.44,
+    "yaw_deg": 3.0,
+    "n_points": 70,
+    "baseline_hit_pct": 100.0,
+    "drift_hit_pct": 0.0,
+    "drop_pp": 100.0
+  }
+}
